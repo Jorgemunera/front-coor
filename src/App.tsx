@@ -1,8 +1,11 @@
+import { AuthProvider } from "./context/AuthProvider";
+import Home from "./pages/home/Home";
+
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center text-center text-xl font-semibold">
-      Empresa de envíos
-    </div>
+    <AuthProvider>
+      <Home />
+    </AuthProvider>
   );
 }
 
