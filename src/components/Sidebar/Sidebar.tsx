@@ -13,16 +13,44 @@ const Sidebar = () => {
   return (
     <aside className="w-64 bg-blue-700 text-white p-6 flex flex-col justify-between">
       <div>
-        <h2 className="text-2xl font-bold mb-6">Empresa de envios</h2>
+        <h2 className="text-2xl font-bold mb-6">Empresa de envíos</h2>
         <p className="text-sm mb-4">Logged in as: {user?.email}</p>
-        <nav className="space-y-2">
-          <button
-            className="block w-full text-left hover:text-blue-300"
-            onClick={() => navigate("/dashboard")}
-          >
-            Dashboard
-          </button>
-          {/* Aquí puedes agregar más botones */}
+
+        <nav className="space-y-3">
+          {user?.role === "user" && (
+            <>
+              <button
+                className="block w-full text-left hover:text-blue-300"
+                onClick={() => navigate("/dashboard")}
+              >
+                Dashboard
+              </button>
+              <button
+                className="block w-full text-left hover:text-blue-300"
+                onClick={() => navigate("/user/create-order")}
+              >
+                Create Order
+              </button>
+              <button
+                className="block w-full text-left hover:text-blue-300"
+                onClick={() => navigate("/user/history")}
+              >
+                Order History
+              </button>
+            </>
+          )}
+
+          {user?.role === "admin" && (
+            <>
+              <button
+                className="block w-full text-left hover:text-blue-300"
+                onClick={() => navigate("/dashboard")}
+              >
+                Admin Dashboard
+              </button>
+              {/* Rutas para admin pendientes */}
+            </>
+          )}
         </nav>
       </div>
 
