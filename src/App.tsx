@@ -1,10 +1,10 @@
 import { AuthProvider } from "./context/AuthProvider";
-import Home from "./pages/home/Home";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
   return (
     <AuthProvider>
-      <Home />
+      <AppRouter />
     </AuthProvider>
   );
 }

@@ -1,20 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { type User } from "../../types/User";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
+import { type User } from "../../types/User";
 
 const Home = () => {
-  const { login } = useAuth();
-  const [isLogin, setIsLogin] = useState(true);
+  const { login, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
+  const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-
   const [error, setError] = useState("");
+
+  // 🔄 Redirigir si estamos autenticados
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated]);
+
+  // 🧹 Limpiar formulario al cambiar entre login/register
+  useEffect(() => {
+    setForm({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+    setError("");
+  }, [isLogin]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -38,23 +57,26 @@ const Home = () => {
             email: form.email,
             password: form.password,
           };
-      console.log("Payload:", payload);
+
       const response = await api.post(url, payload);
-      console.log(response.data);
-      const { token } = response.data;
 
-      const base64Payload = token.split(".")[1];
-      const payloadJson = JSON.parse(atob(base64Payload));
-      const user: User = {
-        id: payloadJson.id,
-        email: payloadJson.email,
-        role: payloadJson.role,
-      };
+      if (isLogin) {
+        const { token } = response.data;
+        const base64Payload = token.split(".")[1];
+        const payloadJson = JSON.parse(atob(base64Payload));
+        const user: User = {
+          id: payloadJson.id,
+          email: payloadJson.email,
+          role: payloadJson.role,
+        };
 
-      login(token, user);
-    } catch (err: any) {
+        login(token, user);
+      } else {
+        setIsLogin(true);
+      }
+    } catch (err) {
       console.error(err);
-      setError(err.response?.data?.error ? err.response.data.error : "Invalid credentials or server error");
+      setError("Invalid credentials or server error");
     }
   };
 
