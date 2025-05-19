@@ -48,7 +48,12 @@ const Sidebar = () => {
               >
                 Admin Dashboard
               </button>
-              {/* Rutas para admin pendientes */}
+              <button
+                className="block w-full text-left hover:text-blue-300"
+                onClick={() => navigate("/admin/assign-orders")}
+              >
+                Assign Orders
+              </button>
             </>
           )}
         </nav>

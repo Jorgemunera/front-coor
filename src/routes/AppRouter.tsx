@@ -6,6 +6,7 @@ import Home from "../pages/home/Home";
 import Dashboard from "../pages/dashboard/Dashboard";
 import CreateOrder from "../pages/orders/CreateOrder";
 import History from "../pages/orders/History";
+import AssignOrders from "../pages/admin/AssignOrders";
 
 const AppRouter = () => {
   const { isAuthenticated, user } = useAuth();
@@ -61,6 +62,20 @@ const AppRouter = () => {
         <Route
           path="*"
           element={<Navigate to={isAuthenticated ? "/dashboard" : "/"} />}
+        />
+        <Route
+          path="/admin/assign-orders"
+          element={
+            <ProtectedRoute>
+              {user?.role === "admin" ? (
+                <MainLayout>
+                  <AssignOrders />
+                </MainLayout>
+              ) : (
+                <Navigate to="/dashboard" />
+              )}
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </BrowserRouter>
