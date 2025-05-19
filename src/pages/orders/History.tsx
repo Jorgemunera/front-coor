@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { getUserOrders } from "../../services/ordersService";
 import { type Order } from "../../types/Order";
+import { useNavigate } from "react-router-dom";
 
 const History = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUserOrders()
@@ -32,6 +35,7 @@ const History = () => {
                 <th className="px-4 py-2 border">Weight</th>
                 <th className="px-4 py-2 border">Status</th>
                 <th className="px-4 py-2 border">Date</th>
+                <th className="px-4 py-2 border">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -44,6 +48,14 @@ const History = () => {
                   <td className="px-4 py-2 border">{order.status}</td>
                   <td className="px-4 py-2 border">
                     {new Date(order.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="px-4 py-2 border">
+                    <button
+                      onClick={() => navigate(`/tracking/${order.id}`)}
+                      className="text-blue-600 underline text-sm hover:text-blue-800"
+                    >
+                      Track
+                    </button>
                   </td>
                 </tr>
               ))}
