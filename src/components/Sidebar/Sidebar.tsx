@@ -54,6 +54,12 @@ const Sidebar = () => {
               >
                 Assign Orders
               </button>
+              <button
+                className="block w-full text-left hover:text-blue-300"
+                onClick={() => navigate("/admin/reports")}
+              >
+                View Reports
+              </button>
             </>
           )}
         </nav>
