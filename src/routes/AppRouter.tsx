@@ -7,6 +7,8 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import CreateOrder from "../pages/orders/CreateOrder";
 import History from "../pages/orders/History";
 import AssignOrders from "../pages/admin/AssignOrders";
+import TrackOrder from "../pages/tracking/TrackOrder";
+
 
 const AppRouter = () => {
   const { isAuthenticated, user } = useAuth();
@@ -74,6 +76,16 @@ const AppRouter = () => {
               ) : (
                 <Navigate to="/dashboard" />
               )}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tracking/:id"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <TrackOrder />
+              </MainLayout>
             </ProtectedRoute>
           }
         />
