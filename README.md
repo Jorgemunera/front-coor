@@ -130,8 +130,10 @@ Frameworks usados:
 
 ## 📬 Contacto
 
-Jorge Munera
-Fullstack Software Developer
-📍 Colombia
-📞 +57 316 823 4878
-📧 gerjo9211@hotmail.com
+**Jorge Munera**  
+Fullstack Software Developer  
+📍 Colombia  
+📞 +57 316 823 4878  
+📧 gerjo9211@hotmail.com  
+
+---
