@@ -16,3 +16,21 @@ export const getUserOrders = async (): Promise<Order[]> => {
   const raw = response.data;
   return Array.isArray(raw) ? raw : raw.data ?? [];
 };
+
+export const getPendingOrders = async (): Promise<Order[]> => {
+  const response = await api.get("/orders", {
+    params: { status: "En espera" },
+  });
+  return Array.isArray(response.data) ? response.data : response.data.data ?? [];
+};
+
+export const assignOrder = async (
+  orderId: number,
+  transporterId: number,
+  routeId: number
+): Promise<void> => {
+  await api.post(`/orders/${orderId}/assign`, {
+    transporterId,
+    routeId,
+  });
+};
