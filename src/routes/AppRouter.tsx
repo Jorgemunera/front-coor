@@ -8,6 +8,7 @@ import CreateOrder from "../pages/orders/CreateOrder";
 import History from "../pages/orders/History";
 import AssignOrders from "../pages/admin/AssignOrders";
 import TrackOrder from "../pages/tracking/TrackOrder";
+import Reports from "../pages/admin/Reports";
 
 
 const AppRouter = () => {
@@ -86,6 +87,20 @@ const AppRouter = () => {
               <MainLayout>
                 <TrackOrder />
               </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/reports"
+          element={
+            <ProtectedRoute>
+              {user?.role === "admin" ? (
+                <MainLayout>
+                  <Reports />
+                </MainLayout>
+              ) : (
+                <Navigate to="/dashboard" />
+              )}
             </ProtectedRoute>
           }
         />
